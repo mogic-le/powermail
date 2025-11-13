@@ -36,3 +36,6 @@ services:
       - name: 'console.command'
         command: 'powermail:resetMarkers'
         description: 'Reset all marker names in fields if there are broken fields without or duplicated markernames.'
+
+  In2code\Powermail\Storage\RateLimitStorage:
+    public: true

@@ -16,6 +16,7 @@ After a submit, different spammethods must be passed:
 - UniqueValues
 - String Blacklist
 - IP-Address Blacklist
+- Rate limiting
 
 Every submitted form will be checked with this methods. Every failed
 method adds a Spam-Indication-Number to a storage. The sum of the
@@ -178,6 +179,38 @@ plugin.tx_powermail {
                         # Blacklisted values (could also get read from a file - simply with FLUIDTEMPLATE)
                         values = TEXT
                         values.value = 123.132.125.123,123.132.125.124
+                    }
+                }
+
+                # Rate limiter
+                8 {
+                    _enable = 1
+
+                    # Spamcheck name
+                    name = IP rate limiter
+
+                    # Class
+                    class = In2code\Powermail\Domain\Validator\SpamShield\RateLimitMethod
+
+                    # if this check fails - add this indication value to indicator (0 disables this check completely)
+                    indication = 100
+
+                    # method configuration
+                    configuration {
+                        #see "DateTimeInterval" class for allowed values
+                        interval = 5 minutes
+
+                        #number of form sumissions within the interval
+                        limit = 10
+
+                        # Parts of the rate limiting key
+                        # - placeholders: __ipAddress, __formIdentifier
+                        # - form values: {email}
+                        # - hard coded values: foo
+                        restrictions {
+                            10 = __ipAddress
+                            20 = __formIdentifier
+                        }
                     }
                 }
             }

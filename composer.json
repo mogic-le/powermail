@@ -35,7 +35,8 @@
 		"ext-json": "*",
 		"ext-gd": "*",
 		"ext-fileinfo": "*",
-		"ext-curl": "*"
+		"ext-curl": "*",
+		"symfony/rate-limiter": "^5.4.8"
 	},
 	"suggest": {
 		"sjbr/static-info-tables": "*"
